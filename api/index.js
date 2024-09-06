@@ -9,26 +9,26 @@ app.get("/", (req, res) => {
 });
 
 app.get('/:link', (req, res) => {
-    let link = req.params.link
+    let link = req.params.link.toString()
+
+    console.log(link)
+
     fetch('https://link-checker.nordvpn.com/v1/public-url-checker/check-url', {
         method: 'POST',
         body: JSON.stringify({url: link})
     })
     .then(res => res.json())
-    .then(data => res.send(data))
+    .then(data => res.send({link, data}))
 })
 
-app.post("/", (req, res) => {
-   res.send("This is home page with post request.");
-});
-
 // PORT
-const PORT = 3000;
+const PORT = 3300;
 
 app.listen(PORT, () => {
    console.log(`Server is running on PORT: ${PORT}`);
 });
 
+module.exports = app;
 
 // ======== Instructions ========
 // save this as index.js
